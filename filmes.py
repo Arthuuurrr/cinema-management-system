@@ -1,4 +1,4 @@
-def criar_filme():
+def cadastrar_filme():
     filmes=[]
 
     while True:
@@ -14,4 +14,5 @@ def criar_filme():
     for f in filmes:
         print("-", f)
 
-criar_filme()
+
+cadastrar_filme()
