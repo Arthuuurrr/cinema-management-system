@@ -14,6 +14,4 @@ def criar_filme():
     for f in filmes:
         print("-", f)
 
-porra no meiio do meu cu
-
 criar_filme()
