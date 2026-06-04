@@ -24,9 +24,8 @@ cadastrar_salas()
 lista_sessoes=[]
 
 while true
-sessoes=input("digite o nome da sessão:(1 para adicionar mais e 0 pra fechar)")
+sessoes=input("digite o nome da sessão:(0 pra fechar)")
 lista_sessoes.append(sessoes)
 if sessoes == 0 
        break
-else
-       continue
+
