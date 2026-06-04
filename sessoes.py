@@ -27,5 +27,6 @@ while true
 sessoes=input("digite o nome da sessão:(1 para adicionar mais e 0 pra fechar)")
 lista_sessoes.append(sessoes)
 if sessoes == 0 
-break
+       break
 else
+       continue
