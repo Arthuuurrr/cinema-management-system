@@ -28,4 +28,6 @@ sessoes=input("digite o nome da sessão:(0 pra fechar)")
 lista_sessoes.append(sessoes)
 if sessoes == 0 
        break
+for sessoes in sessoes
+	print(sessoes)
 
