@@ -36,10 +36,15 @@ uma sala, que tem uma capacidade de pessoas maxima dai no final tem que printar
 as sessoes e as salas e os lugares disponiveis tlgd pq eu acho que mais pra frente
 a gente vai ter que ir subtraindo o umero de lugares conforme as pessoas "chegam" pra
 criar uma outra variavel com "lugares_disponiveis" mas resumindo eu acho que fica mais organizado 
-com dicionarios dai agr eu to vindo de cima pra maixo corrigindo esse codigo de baixo 
+com dicionarios dai, mas POR AGORA eu to vindo de cima pra maixo corrigindo esse codigo de baixo 
 dai to tentando criar um dicionario chamado "lista_sessoes" e colocar
 o dicionario "salas" dentro dele, ta cheio de erro tlgd e a parte de baixo do codigo é copiada do
-codigo de cima pra eu arrumar dps de arrumar a parte de cima
+codigo de cima pra eu arrumar dps de arrumar a parte de cima. La em baixo
+vai ter que mudar tudo pq os bagulho tão 'solto' tlgd, dai tem que colocar no dicionario certo e pa
+mas da linha 6 até a 14 eu tenho crtz que ta certo tlgd. Se tu quiser testar essa parte de
+cima pra ver oque eu to falando vc exclui a linha 2 e 3 e toda a parte de baixo (linha 18 á 27) e 
+testa pdp? 
+esse é o codigo atual:
 
 
 def cadastrar_salas():
