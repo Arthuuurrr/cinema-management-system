@@ -8,7 +8,7 @@ def cadastrar_salas():
 
     while True:
 
-        salas=input("digite o numero da sua sala?(ou sair)")
+        salas=input("digite o numero da sua sala (ou sair):")
 
         if salas == "sair":
             break
@@ -23,13 +23,14 @@ cadastrar_salas()
 
 lista_sessoes=[]
 
-while true
-sessoes=input("digite o nome da sessão:(0 pra fechar)")
-lista_sessoes.append(sessoes)
-if sessoes == 0 
+while True:
+    sessoess=input("digite o nome da sessão (0 pra fechar):")
+    lista_sessoes.append(sessoess)
+    if sessoess == "0":
        break
-for sessoes in sessoes
-	print(sessoes)
+    for sessoess in lista_sessoes:
+        list(sessoess)
+
 """eu joguei pro chat corrigir o codigo dai eu vou corrigir o meu com base no dele pra eu aprender namoral:
 def cadastrar_salas():
     salas = {}
