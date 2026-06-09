@@ -28,8 +28,8 @@ while True:
     lista_sessoes.append(sessoess)
     if sessoess == "0":
        break
-    for sessoess in lista_sessoes:
-        list(sessoess)
+    elif sessoess in lista_sessoes:
+        print(lista_sessoes)
 
 """eu joguei pro chat corrigir o codigo dai eu vou corrigir o meu com base no dele pra eu aprender namoral:
 def cadastrar_salas():
