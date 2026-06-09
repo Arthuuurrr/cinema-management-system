@@ -22,6 +22,13 @@ def cadastrar_salas():
 cadastrar_salas()
 
 lista_sessoes=[]
+
+while true
+sessoes=input("digite o nome da sessão:(0 pra fechar)")
+lista_sessoes.append(sessoes)
+if sessoes == 0 
+       break
+for sessoes in sessoes
 """eu joguei pro chat corrigir o codigo dai eu vou corrigir o meu com base no dele pra eu aprender namoral:
 def cadastrar_salas():
     salas = {}
@@ -78,11 +85,5 @@ if salas_cadastradas:
     print("\n--- Verificar Capacidade ---")
     verificar_capacidade(salas_cadastradas)"""
 
-while true
-sessoes=input("digite o nome da sessão:(0 pra fechar)")
-lista_sessoes.append(sessoes)
-if sessoes == 0 
-       break
-for sessoes in sessoes
 	print(sessoes)
 
