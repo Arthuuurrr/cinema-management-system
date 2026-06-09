@@ -31,61 +31,46 @@ while True:
     elif sessoess in lista_sessoes:
         print(lista_sessoes)
 
-"""eu joguei pro chat corrigir o codigo dai eu vou corrigir o meu com base no dele pra eu aprender namoral:
+""" pensei em fazer por lista e dicionario tlgd, pq uma sessao tem precisa de
+uma sala, que tem uma capacidade de pessoas maxima dai no final tem que printar
+as sessoes e as salas e os lugares disponiveis tlgd pq eu acho que mais pra frente
+a gente vai ter que ir subtraindo o umero de lugares conforme as pessoas "chegam" pra
+criar uma outra variavel com "lugares_disponiveis" mas resumindo eu acho que fica mais organizado 
+com dicionarios dai agr eu to vindo de cima pra maixo corrigindo esse codigo de baixo 
+dai to tentando criar um dicionario chamado "lista_sessoes" e colocar
+o dicionario "salas" dentro dele, ta cheio de erro tlgd e a parte de baixo do codigo é copiada do
+codigo de cima pra eu arrumar dps de arrumar a parte de cima
+
+
 def cadastrar_salas():
-    salas = {}
+    lista_sessoes={}
+    lista_sessoes([salas])
+    salas={}
     while True:
-        nome_sala = input("Digite o nome da sala (ou digite 'sair'): ").strip().lower()
-        if nome_sala == 'sair':
+        nome_sala = input("digite o nome da sala (ou sair):")
+        capacidade = (int(input("digite a capacidade desta sala:")))
+        salas[nome_sala]= capacidade
+        print("\nDicionário atualizado:")
+        print(salas)
+        if nome_sala == "sair":
             break
-        
-        if nome_sala in salas:
-            print("Essa sala já existe!")
-        else:
-            try:
-                capacidade = int(input(f"Digite a capacidade máxima da sala {nome_sala}: "))
-                salas[nome_sala] = capacidade
-                print(f"Sala {nome_sala} cadastrada com sucesso!\n")
-            except ValueError:
-                print("Por favor, digite um número válido para a capacidade.")
-    return salas
+        elif nome_sala in salas:
+            print("esta sala já existe!")
 
-def criar_sessoes(salas_disponiveis):
-    sessoes = []
-    while True:
-        nome_sessao = input("Digite o nome da sessão (ou '0' para fechar): ").strip()
-        if nome_sessao == '0':
-            break
-            
-        if nome_sessao:
-            sessoes.append(nome_sessao)
-            print(f"Sessão '{nome_sessao}' adicionada.\n")
-    return sessoes
 
-def verificar_capacidade(salas):
-    nome_sala = input("Verificar capacidade da sala: ").strip().lower()
-    if nome_sala in salas:
-        print(f"A capacidade da sala {nome_sala} é de {salas[nome_sala]} pessoas.\n")
-    else:
-        print("Sala não encontrada.\n")
+cadastrar_salas()
 
-# --- Fluxo Principal do Programa ---
-print("--- Cadastro de Salas ---")
-salas_cadastradas = cadastrar_salas()
+#parte de baixo
+while True:
 
-if salas_cadastradas:
-    print("\n--- Criação de Sessões ---")
-    sessoes_criadas = criar_sessoes(salas_cadastradas)
-    
-    print("\n--- Listar Sessões ---")
-    if sessoes_criadas:
-        for s in sessoes_criadas:
-            print(f"- {s}")
-    else:
-        print("Nenhuma sessão criada.")
-    
-    print("\n--- Verificar Capacidade ---")
-    verificar_capacidade(salas_cadastradas)"""
+    sessoess=input("digite o nome da sessão (0 pra fechar):")
+    salas[lista_sessoes]
+    lista_sessoes.append(sessoess)
+    if sessoess == "0":
+       break
+    elif sessoess in lista_sessoes:
+        print(lista_sessoes)
+"""
 
 	
 
