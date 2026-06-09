@@ -29,6 +29,7 @@ lista_sessoes.append(sessoes)
 if sessoes == 0 
        break
 for sessoes in sessoes
+	print(sessoes)
 """eu joguei pro chat corrigir o codigo dai eu vou corrigir o meu com base no dele pra eu aprender namoral:
 def cadastrar_salas():
     salas = {}
@@ -85,5 +86,5 @@ if salas_cadastradas:
     print("\n--- Verificar Capacidade ---")
     verificar_capacidade(salas_cadastradas)"""
 
-	print(sessoes)
+	
 
