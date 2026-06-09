@@ -31,7 +31,7 @@ def cadastrar_filme():
     }
         filmes.append(filme)
         print("Filme cadastrado com sucesso")
-cadastrar_filme()
+
 
 
 
@@ -50,22 +50,25 @@ def listar_filme():
         print(f"Ano: {filme['ano']}") 
         print(f"Diretor: {filme['diretor']}\n") 
 
-listar_filme()
+
 
 
 
 
 def editar_filme():
-    nome=input("Qual filme voce desseja editar")
+    nome=input("Qual filme voce desseja editar (0 para cancelar)")
     
+    if nome == "0":
+        return
+
     for filme in filmes:
-        if filme["nome"] == nome:
+        if filme["nome"].lower() == nome.lower():
             print("1 - Nome")
             print("2 - Gênero")
             print("3 - Duração")
             print("4 - Classificação")
             print("5 - Ano")
-            print("6 - Direito")
+            print("6 - Diretor")
 
             opcao = input("O que deseja editar? ")
             
@@ -74,11 +77,11 @@ def editar_filme():
             if opcao == "2":
                 filme["genero"] = input("Novo genero: ")
             if opcao == "3":
-                filme["duracao"] = input("Nova duração: ")
+                filme["duracao"] = int(input("Nova duração: "))
             if opcao == "4":
                 filme["classificacao"] = input("Nova classificacao: ")
             if opcao == "5":
-                filme["ano"] = input("Novo ano: ")
+                filme["ano"] = int(input("Novo ano: "))
             if opcao == "6":
                 filme["diretor"] = input("Novo diretor: ")
 
@@ -86,3 +89,51 @@ def editar_filme():
             return
 
     print("Filme não encontrado. ")
+
+
+
+def remover_filme():
+    nome=input("Qual filme voce deseja remover: (0 para cancelar)")
+
+    if nome== "0":
+        return
+
+    for filme in filmes:
+        if filme["nome"].lower() == nome.lower():
+            certeza=input(f"Tem certeza que deseja excluir {nome}(responda com sim ou nao)")
+            if certeza.lower() == "sim":
+                filmes.remove(filme)
+                print(f"Filme{nome} removido com sucesso!")
+            else:
+                print("Operação Cancelada!")
+
+            return
+        
+    print("Filme não encontrado!")
+            
+
+
+
+
+while True:
+    print("\n===MODULO FILMES===")
+    print("1- Cadastrar Filmes")
+    print("2- Listar Filmes ")
+    print("3- Editar Filmes")
+    print("4- Remover Filmes")
+    print("0- Sair")
+
+    opcao=input("Escolha uma opção")
+
+    if opcao == "1":
+        cadastrar_filme()
+    elif opcao == "2":
+        listar_filme()
+    elif opcao == "3":
+        editar_filme()
+    elif opcao == "4":
+        remover_filme()
+    elif opcao == "0":
+        break
+    else:
+        print("Opção Inválida")
