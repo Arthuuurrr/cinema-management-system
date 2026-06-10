@@ -52,7 +52,7 @@ def listar_filme():
         print(f"Diretor: {filme['diretor']}\n") 
 
 """Esta parte foi responsavel pela listagem dos filmes no codigo,
-coletando os dados dos filmes ja cadastrados e printando eles"""
+coletando os dados dos filmes ja cadastrados e printando eles em forma de lista"""
 
 
 def editar_filme():
