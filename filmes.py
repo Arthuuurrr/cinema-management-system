@@ -32,7 +32,8 @@ def cadastrar_filme():
         filmes.append(filme)
         print("Filme cadastrado com sucesso")
 
-
+"""Esta parte foi responsavel pelo cadastro dos filmes no codigo,
+coletando os dados, por meio de inputs que passam pra dicionarios"""
 
 
 def listar_filme():
@@ -50,9 +51,8 @@ def listar_filme():
         print(f"Ano: {filme['ano']}") 
         print(f"Diretor: {filme['diretor']}\n") 
 
-
-
-
+"""Esta parte foi responsavel pela listagem dos filmes no codigo,
+coletando os dados dos filmes ja cadastrados e printando eles"""
 
 
 def editar_filme():
@@ -91,6 +91,9 @@ def editar_filme():
     print("Filme não encontrado. ")
 
 
+"""Esta parte foi responsavel pela edicao dos filmes no catalogo,
+coletando os dados e alterando o dado escolhido para o novo valor determinado"""
+
 
 def remover_filme():
     nome=input("Qual filme voce deseja remover: (0 para cancelar)")
@@ -112,7 +115,9 @@ def remover_filme():
     print("Filme não encontrado!")
             
 
-
+"""Esta parte foi responsavel pela remocao dos filmes no catalogo,
+pegando os dados do filme escolhido e removendo da lista de filmes 
+inclusas em listar_filmes"""
 
 
 while True:
@@ -137,3 +142,6 @@ while True:
         break
     else:
         print("Opção Inválida")
+
+"""Esta parte do codigo cria um menu inicial, para que o usuario escolha qual funcao utilizar
+separando por cada uma das funcoes criadas no codigo"""
