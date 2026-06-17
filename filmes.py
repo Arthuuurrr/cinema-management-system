@@ -7,18 +7,31 @@
 
 """Cadastrar= nome/genero/duracao/classificao indicativa"""
 
-filmes=[]
+from cinema import filmes
 
 def cadastrar_filme():
     while True:
         nome=input("Qual o filme? (digite sair para parar)")
-        if nome == "sair":
+        if nome.lower() == "sair":
             break 
-        genero=input("Qual o genero?")
-        duracao=int(input("Qual a duracao?"))
-        classificacao=input("Qual a classificacao?")
-        ano=int(input("Qual o ano de lançamento"))
-        diretor=input("Qual o diretor")
+
+        filme_existe = False
+        
+        for filme in filmes:
+            if filme['nome'].lower() == nome.lower():
+                filme_existe = True
+                break
+
+        if filme_existe:
+            print("Filme já foi cadastrado!")
+            continue
+
+        else:
+            genero=input("Qual o genero?")
+            duracao=int(input("Qual a duracao?"))
+            classificacao=input("Qual a classificacao?")
+            ano=int(input("Qual o ano de lançamento?"))
+            diretor=input("Qual o diretor?")
 
         filme = {
         "nome" : nome,
@@ -50,13 +63,14 @@ def listar_filme():
         print(f"Classificacao: {filme['classificacao']}")
         print(f"Ano: {filme['ano']}") 
         print(f"Diretor: {filme['diretor']}\n") 
+        print("-" * 30)
 
 """Esta parte foi responsavel pela listagem dos filmes no codigo,
 coletando os dados dos filmes ja cadastrados e printando eles em forma de lista"""
 
 
 def editar_filme():
-    nome=input("Qual filme voce desseja editar (0 para cancelar)")
+    nome=input("Qual filme voce deseja editar (0 para cancelar)")
     
     if nome == "0":
         return
@@ -74,15 +88,15 @@ def editar_filme():
             
             if opcao == "1":
                 filme["nome"] = input("Novo nome: ")
-            if opcao == "2":
+            elif opcao == "2":
                 filme["genero"] = input("Novo genero: ")
-            if opcao == "3":
+            elif opcao == "3":
                 filme["duracao"] = int(input("Nova duração: "))
-            if opcao == "4":
+            elif opcao == "4":
                 filme["classificacao"] = input("Nova classificacao: ")
-            if opcao == "5":
+            elif opcao == "5":
                 filme["ano"] = int(input("Novo ano: "))
-            if opcao == "6":
+            elif opcao == "6":
                 filme["diretor"] = input("Novo diretor: ")
 
             print("Filme editado com sucesso")
@@ -106,7 +120,7 @@ def remover_filme():
             certeza=input(f"Tem certeza que deseja excluir {nome}(responda com sim ou nao)")
             if certeza.lower() == "sim":
                 filmes.remove(filme)
-                print(f"Filme{nome} removido com sucesso!")
+                print(f"Filme {nome} removido com sucesso!")
             else:
                 print("Operação Cancelada!")
 
