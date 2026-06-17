@@ -2,3 +2,4 @@
 filmes=[]
 salas=[]
 sessoes=[]
+ingressos=[]
