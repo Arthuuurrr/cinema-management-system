@@ -1,67 +1,44 @@
 import pickle
 from datetime import datetime
 
-ARQUIVO_VENDAS = "vendas.pkl"
+ARQUIVO = "ingressos.pkl"
 
 
-def carregar_vendas():
+def carregar_ingressos():
     try:
-        with open(ARQUIVO_VENDAS, "rb") as arquivo:
-            vendas = pickle.load(arquivo)
-
-            if isinstance(vendas, list):
-                return vendas
-
-            return []
-
+        with open(ARQUIVO, "rb") as arquivo:
+            return pickle.load(arquivo)
     except FileNotFoundError:
         return []
 
-    except (EOFError, pickle.UnpicklingError):
-        print("Não foi possível carregar o arquivo de vendas.")
-        return []
+
+def salvar_ingressos(ingressos):
+    with open(ARQUIVO, "wb") as arquivo:
+        pickle.dump(ingressos, arquivo)
 
 
-def salvar_vendas(vendas):
-    with open(ARQUIVO_VENDAS, "wb") as arquivo:
-        pickle.dump(vendas, arquivo)
-
-
-def ler_valor():
-    while True:
-        valor_digitado = input("Valor do ingresso: R$ ").replace(",", ".")
-
-        try:
-            valor = float(valor_digitado)
-
-            if valor > 0:
-                return valor
-
-            print("O valor precisa ser maior que zero.")
-
-        except ValueError:
-            print("Digite um valor válido. Exemplo: 25,00")
-
-
-def vender_ingresso():
+def vender_ingresso(ingressos):
     print("\n--- VENDA DE INGRESSO ---")
 
-    nome = input("Nome do cliente: ").strip()
-    cpf = input("CPF do cliente: ").strip()
-    filme = input("Nome do filme: ").strip()
-    sessao = input("Horário da sessão: ").strip()
-    assento = input("Assento escolhido: ").strip().upper()
-    valor = ler_valor()
+    nome = input("Nome do cliente: ")
+    cpf = input("CPF do cliente: ")
+    filme = input("Nome do filme: ")
+    sessao = input("Horário da sessão: ")
+    assento = input("Assento escolhido: ")
 
-    vendas = carregar_vendas()
+    try:
+        valor = float(input("Valor do ingresso: R$ ").replace(",", "."))
+    except ValueError:
+        print("Valor inválido!")
+        return
 
-    for venda in vendas:
+    for ingresso in ingressos:
         if (
-            venda["filme"].lower() == filme.lower()
-            and venda["sessao"] == sessao
-            and venda["assento"].upper() == assento
+            ingresso["filme"].lower() == filme.lower()
+            and ingresso["sessao"] == sessao
+            and ingresso["assento"].lower() == assento.lower()
         ):
-            print("\nEsse assento já foi vendido para essa sessão.")
+            print("Esse assento já foi vendido para essa sessão!")
             return
 
     ingresso = {
@@ -71,63 +48,53 @@ def vender_ingresso():
         "sessao": sessao,
         "assento": assento,
         "valor": valor,
-        "data": datetime.now().strftime("%d/%m/%Y"),
-        "hora_venda": datetime.now().strftime("%H:%M")
+        "data": datetime.now().strftime("%d/%m/%Y")
     }
 
-    vendas.append(ingresso)
-    salvar_vendas(vendas)
+    ingressos.append(ingresso)
+    salvar_ingressos(ingressos)
 
     print("\nIngresso vendido com sucesso!")
-    print(f"Cliente: {nome}")
-    print(f"Filme: {filme}")
-    print(f"Sessão: {sessao}")
-    print(f"Assento: {assento}")
-    print(f"Valor: R$ {valor:.2f}")
 
 
-def listar_vendas():
-    vendas = carregar_vendas()
-
+def listar_ingressos(ingressos):
     print("\n--- INGRESSOS VENDIDOS ---")
 
-    if not vendas:
-        print("Nenhum ingresso foi vendido.")
+    if not ingressos:
+        print("Nenhum ingresso vendido.")
         return
 
-    for numero, venda in enumerate(vendas, start=1):
+    for numero, ingresso in enumerate(ingressos, start=1):
         print(f"\nIngresso {numero}")
-        print(f"Cliente: {venda['nome']}")
-        print(f"CPF: {venda['cpf']}")
-        print(f"Filme: {venda['filme']}")
-        print(f"Sessão: {venda['sessao']}")
-        print(f"Assento: {venda['assento']}")
-        print(f"Valor: R$ {venda['valor']:.2f}")
-        print(f"Data da venda: {venda['data']}")
-        print("-" * 30)
+        print(f"Cliente: {ingresso['nome']}")
+        print(f"CPF: {ingresso['cpf']}")
+        print(f"Filme: {ingresso['filme']}")
+        print(f"Sessão: {ingresso['sessao']}")
+        print(f"Assento: {ingresso['assento']}")
+        print(f"Valor: R$ {ingresso['valor']:.2f}")
+        print(f"Data: {ingresso['data']}")
 
 
-def menu_ingressos():
+def menu_ingressos(ingressos):
+    ingressos.clear()
+    ingressos.extend(carregar_ingressos())
+
     while True:
         print("\n=== INGRESSOS ===")
         print("1 - Vender ingresso")
-        print("2 - Listar ingressos vendidos")
+        print("2 - Listar ingressos")
         print("0 - Voltar")
 
-        opcao = input("Escolha uma opção: ").strip()
+        opcao = input("Escolha uma opção: ")
 
         if opcao == "1":
-            vender_ingresso()
+            vender_ingresso(ingressos)
 
         elif opcao == "2":
-            listar_vendas()
+            listar_ingressos(ingressos)
 
         elif opcao == "0":
             break
 
         else:
             print("Opção inválida!")
-
-
-if __name__ == "__main__":
-    menu_ingressos()
