@@ -1,12 +1,12 @@
+from cinema import ingressos
 from collections import Counter
-from ingressos import carregar_ingressos
 
 
-def total_ingressos(ingressos):
+def total_ingressos():
     print(f"\nTotal de ingressos vendidos: {len(ingressos)}")
 
 
-def faturamento_total(ingressos):
+def faturamento_total():
     total = 0
 
     for ingresso in ingressos:
@@ -15,47 +15,39 @@ def faturamento_total(ingressos):
     print(f"\nFaturamento total: R$ {total:.2f}")
 
 
-def filme_mais_assistido(ingressos):
+def filme_mais_assistido():
     if not ingressos:
         print("\nNenhum ingresso vendido.")
         return
 
-    filmes = []
+    filmes_vendidos = []
 
     for ingresso in ingressos:
-        filmes.append(ingresso["filme"])
+        filmes_vendidos.append(ingresso["filme"])
 
-    contagem = Counter(filmes)
+    contagem = Counter(filmes_vendidos)
+
     filme = contagem.most_common(1)[0]
 
     print(f"\nFilme mais assistido: {filme[0]}")
     print(f"Ingressos vendidos: {filme[1]}")
 
 
-def menu_relatorios(ingressos):
-    ingressos.clear()
-    ingressos.extend(carregar_ingressos())
+def relatorio_diario():
+    if not ingressos:
+        print("\nNenhum ingresso vendido.")
+        return
 
-    while True:
-        print("\n=== RELATÓRIOS ===")
-        print("1 - Total de ingressos vendidos")
-        print("2 - Faturamento total")
-        print("3 - Filme mais assistido")
-        print("0 - Voltar")
+    data = input("Digite a data do relatório (dd/mm/aaaa): ")
 
-        opcao = input("Escolha uma opção: ")
+    total = 0
+    faturamento = 0
 
-        if opcao == "1":
-            total_ingressos(ingressos)
+    for ingresso in ingressos:
+        if ingresso["data"] == data:
+            total += 1
+            faturamento += ingresso["valor"]
 
-        elif opcao == "2":
-            faturamento_total(ingressos)
-
-        elif opcao == "3":
-            filme_mais_assistido(ingressos)
-
-        elif opcao == "0":
-            break
-
-        else:
-            print("Opção inválida!")
+    print(f"\n=== RELATÓRIO DO DIA {data} ===")
+    print(f"Ingressos vendidos: {total}")
+    print(f"Faturamento: R$ {faturamento:.2f}")
