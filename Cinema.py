@@ -1,14 +1,42 @@
-from ingressos import menu_ingressos
-from relatorios import menu_relatorios
+import pickle
 
-"""A integração"""
-filmes=[]
-salas=[]
-sessoes=[]
-ingressos=[]
+ARQUIVO = "cinema.pkl"
 
-elif opcao == "3":
-    menu_ingressos(ingressos)
+filmes = []
+salas = []
+sessoes = []
+ingressos = []
 
-elif opcao == "4":
-    menu_relatorios(ingressos)
+
+def salvar_dados():
+    dados = {
+        "filmes": filmes,
+        "salas": salas,
+        "sessoes": sessoes,
+        "ingressos": ingressos
+    }
+
+    with open(ARQUIVO, "wb") as arquivo:
+        pickle.dump(dados, arquivo)
+
+
+def carregar_dados():
+    try:
+        with open(ARQUIVO, "rb") as arquivo:
+            dados = pickle.load(arquivo)
+
+            filmes.clear()
+            filmes.extend(dados.get("filmes", []))
+
+            salas.clear()
+            salas.extend(dados.get("salas", []))
+
+            sessoes.clear()
+            sessoes.extend(dados.get("sessoes", []))
+
+            ingressos.clear()
+            ingressos.extend(dados.get("ingressos", []))
+
+    except FileNotFoundError:
+        pass
+        
