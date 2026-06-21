@@ -137,4 +137,5 @@ def menu_principal():
             print("Opção inválida!")
 
 
-menu_principal()
+if __name__ == "__main__":
+    menu_principal()
