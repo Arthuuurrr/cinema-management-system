@@ -1,3 +1,11 @@
+"""MODULO DE FILMES
+1. Módulo de Filmes
+ Cadastrar filmes
+ Listar filmes
+ Editar informações
+ Remover filme"""
+
+
 from cinema import filmes, salvar_dados
 
 
