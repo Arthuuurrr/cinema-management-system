@@ -39,4 +39,3 @@ def carregar_dados():
 
     except FileNotFoundError:
         pass
-        
