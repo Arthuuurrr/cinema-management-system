@@ -4,6 +4,7 @@ from filmes import cadastrar_filme, listar_filmes, editar_filme, remover_filme
 from sessoes import cadastrar_salas, listar_salas, criar_sessoes, listar_sessoes, verificar_capacidade
 from ingressos import vender_ingresso, listar_ingressos, cancelar_ingresso, verificar_assentos
 from relatorios import total_ingressos, faturamento_total, filme_mais_assistido, relatorio_diario
+from extras import dashboard, exportar_relatorio_txt, ver_log, buscar_filmes
 
 
 def menu_filmes():
@@ -118,10 +119,13 @@ def menu_principal():
         print("2 - Salas e Sessões")
         print("3 - Ingressos")
         print("4 - Relatórios")
+        print("5 - Dashboard")
+        print("6 - Exportar Relatório TXT")
+        print("7 - Ver Log do Sistema")
+        print("8 - Buscar Filmes")
         print("0 - Sair")
 
         opcao = input("Escolha uma opção: ")
-
         if opcao == "1":
             menu_filmes()
         elif opcao == "2":
@@ -130,6 +134,14 @@ def menu_principal():
             menu_ingressos()
         elif opcao == "4":
             menu_relatorios()
+        elif opcao == "5":
+            dashboard()
+        elif opcao == "6":
+            exportar_relatorio_txt()
+        elif opcao == "7":
+            ver_log()
+        elif opcao == "8":
+            buscar_filmes()
         elif opcao == "0":
             print("Sistema encerrado!")
             break
