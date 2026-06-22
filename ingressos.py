@@ -1,140 +1,127 @@
 from cinema import ingressos, sessoes, salvar_dados
 from datetime import datetime
+import tkinter as tk
 
 
-def mostrar_assentos(capacidade, assentos_ocupados):
+def escolher_assento_tkinter(capacidade, assentos_ocupados):
+    assento_escolhido = {"valor": None}
 
-    print("\n=== MAPA DE ASSENTOS ===")
+    janela = tk.Tk()
+    janela.title("Escolha de Assento")
 
     colunas = 5
     letras = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-
     quantidade_fileiras = (capacidade + colunas - 1) // colunas
 
-    print("     ", end="")
-    for numero in range(1, colunas + 1):
-        print(f"{numero:^5}", end="")
-    print()
+    contador = 0
 
-    assento_atual = 0
+    def selecionar_assento(assento):
+        assento_escolhido["valor"] = assento
+        janela.destroy()
+
+    titulo = tk.Label(janela, text="Escolha seu assento", font=("Arial", 16, "bold"))
+    titulo.grid(row=0, column=0, columnspan=colunas, pady=10)
+
+    legenda = tk.Label(janela, text="[X] = Ocupado | Clique em um assento livre")
+    legenda.grid(row=1, column=0, columnspan=colunas, pady=5)
 
     for i in range(quantidade_fileiras):
-
-        print(f"{letras[i]} ", end=" ")
-
         for numero in range(1, colunas + 1):
+            contador += 1
 
-            assento_atual += 1
-
-            if assento_atual > capacidade:
+            if contador > capacidade:
                 break
 
             assento = f"{letras[i]}{numero}"
 
+            botao = tk.Button(
+                janela,
+                text=assento,
+                width=6,
+                height=2,
+                command=lambda a=assento: selecionar_assento(a)
+            )
+
             if assento in assentos_ocupados:
-                print("[X]  ", end="")
-            else:
-                print("[ ]  ", end="")
+                botao.config(state="disabled", text="X")
 
-        print()
+            botao.grid(row=i + 2, column=numero - 1, padx=5, pady=5)
 
-    print("\n[X] = Ocupado")
-    print("[ ] = Livre\n")
+    janela.mainloop()
+
+    return assento_escolhido["valor"]
+
 
 def vender_ingresso():
+    if not sessoes:
+        print("Nenhuma sessão cadastrada!")
+        return
 
-   if not sessoes:
-      print("Nenhuma sessão cadastrada!")
-      return
+    print("\n=== SESSÕES DISPONÍVEIS ===")
 
-   print("\n=== SESSÕES DISPONÍVEIS ===")
+    for sessao in sessoes:
+        print(
+            f"ID: {sessao['id']} | "
+            f"Filme: {sessao['filme']} | "
+            f"Horário: {sessao['horario']}"
+        )
 
-   for sessao in sessoes:
-      print(
-         f"ID: {sessao['id']} | "
-         f"Filme: {sessao['filme']} | "
-         f"Horário: {sessao['horario']}"
-      )
+    id_sessao = int(input("Escolha a sessão: "))
 
-   id_sessao = int(input("Escolha a sessão: "))
+    sessao_escolhida = None
 
-   sessao_escolhida = None
-
-   for sessao in sessoes:
-      if sessao["id"] == id_sessao:
-         sessao_escolhida = sessao
-         break
-
-   if sessao_escolhida is None:
-      print("Sessão não encontrada!")
-      return
-
-   if sessao_escolhida["ocupados"] >= sessao_escolhida["capacidade"]:
-      print("Sessão lotada!")
-      return
-
-   nome = input("Nome do cliente: ")
-   cpf = input("CPF: ")
-   
-   assentos_ocupados = []
-
-   for ingresso in ingressos:
-      if ingresso["sessao"] == id_sessao:
-         assentos_ocupados.append(ingresso["assento"])
-
-   mostrar_assentos(sessao_escolhida["capacidade"], assentos_ocupados)
-
-   assento = input("Escolha um assento: ").upper()
-
-   assentos_validos = []
-
-   colunas = 5
-   letras = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-
-   quantidade_fileiras = (sessao_escolhida["capacidade"] + colunas - 1) // colunas
-
-   contador = 0
-
-   for i in range(quantidade_fileiras):
-      for numero in range(1, colunas + 1):
-         contador += 1
-
-         if contador > sessao_escolhida["capacidade"]:
+    for sessao in sessoes:
+        if sessao["id"] == id_sessao:
+            sessao_escolhida = sessao
             break
 
-         assentos_validos.append(f"{letras[i]}{numero}")
+    if sessao_escolhida is None:
+        print("Sessão não encontrada!")
+        return
 
-   if assento not in assentos_validos:
-      print("Assento inválido!")
-      return
-   if assento in assentos_ocupados:
-      print("Assento já vendido!")
-      return
+    if sessao_escolhida["ocupados"] >= sessao_escolhida["capacidade"]:
+        print("Sessão lotada!")
+        return
 
+    nome = input("Nome do cliente: ")
+    cpf = input("CPF: ")
 
-   valor = float(input("Valor do ingresso: "))
+    assentos_ocupados = []
 
-   ingresso = {
-      "nome": nome,
-      "cpf": cpf,
-      "filme": sessao_escolhida["filme"],
-      "sessao": id_sessao,
-      "assento": assento,
-      "valor": valor,
-      "data": datetime.now().strftime("%d/%m/%Y")
-   }
+    for ingresso in ingressos:
+        if ingresso["sessao"] == id_sessao:
+            assentos_ocupados.append(ingresso["assento"])
 
-   ingressos.append(ingresso)
+    assento = escolher_assento_tkinter(
+        sessao_escolhida["capacidade"],
+        assentos_ocupados
+    )
 
-   sessao_escolhida["ocupados"] += 1
+    if assento is None:
+        print("Nenhum assento escolhido!")
+        return
 
-   salvar_dados()
+    valor = float(input("Valor do ingresso: "))
 
-   print("Ingresso vendido com sucesso!")
+    ingresso = {
+        "nome": nome,
+        "cpf": cpf,
+        "filme": sessao_escolhida["filme"],
+        "sessao": id_sessao,
+        "assento": assento,
+        "valor": valor,
+        "data": datetime.now().strftime("%d/%m/%Y")
+    }
+
+    ingressos.append(ingresso)
+    sessao_escolhida["ocupados"] += 1
+
+    salvar_dados()
+
+    print("Ingresso vendido com sucesso!")
 
 
 def listar_ingressos():
-
     if not ingressos:
         print("Nenhum ingresso vendido!")
         return
@@ -142,7 +129,6 @@ def listar_ingressos():
     print("\n=== INGRESSOS ===")
 
     for numero, ingresso in enumerate(ingressos, start=1):
-
         print(f"\nIngresso {numero}")
         print(f"Cliente: {ingresso['nome']}")
         print(f"CPF: {ingresso['cpf']}")
@@ -154,15 +140,12 @@ def listar_ingressos():
 
 
 def cancelar_ingresso():
-
     cpf = input("CPF do cliente: ")
 
     for ingresso in ingressos:
-
         if ingresso["cpf"] == cpf:
 
             for sessao in sessoes:
-
                 if sessao["id"] == ingresso["sessao"]:
                     sessao["ocupados"] -= 1
                     break
@@ -177,19 +160,13 @@ def cancelar_ingresso():
     print("Ingresso não encontrado!")
 
 
-
 def verificar_assentos():
-
     if not sessoes:
         print("Nenhuma sessão cadastrada!")
         return
 
     for sessao in sessoes:
-
-        disponiveis = (
-            sessao["capacidade"]
-            - sessao["ocupados"]
-        )
+        disponiveis = sessao["capacidade"] - sessao["ocupados"]
 
         print(
             f"Filme: {sessao['filme']} | "
